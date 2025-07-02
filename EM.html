@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Marketing Digital - TH CONSERVAÇÃO</title>
+    <!-- Chosen Palette: Warm Neutrals with Sienna Accent -->
+    <!-- Application Structure Plan: A single-page application with a sticky navigation header, a high-level hero section, an interactive tabbed dashboard for market analysis (with clickable cards), a data visualization section for SEO strategy (featuring a Chart.js chart and accordions), and an interactive checklist for actionable next steps. This structure is designed for intuitive exploration, transforming the dense report into a digestible, engaging, and non-linear experience that facilitates user understanding and strategic decision-making. -->
+    <!-- Visualization & Content Choices: Market analysis is presented via interactive cards within tabs (HTML/JS) to compare competitors without overwhelming the user. Keyword data is visualized using a dynamic Chart.js bar chart for easy comparison of volume vs. difficulty, with filters for user-driven analysis. SEO tactics are organized into accordions (HTML/JS) to make text-heavy sections scannable. Actionable recommendations are converted into an interactive checklist/roadmap (HTML/JS) to make the plan feel tangible and trackable. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #3C3633;
+        }
+        .warm-neutral-bg { background-color: #FDFBF8; }
+        .sienna-accent { background-color: #A0522D; }
+        .sienna-accent-dark { background-color: #8B4513; }
+        .sienna-text { color: #A0522D; }
+        .sienna-border { border-color: #A0522D; }
+        .card-bg { background-color: #FFFFFF; }
+        .secondary-bg { background-color: #F5F1ED; }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #A0522D;
+            border-bottom-color: #A0522D;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: #A0522D;
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+        .tab.active {
+            border-color: #A0522D;
+            background-color: #A0522D;
+            color: #FFFFFF;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .checklist-item input:checked + label .checklist-text {
+            text-decoration: line-through;
+            color: #9CA3AF;
+        }
+        .checklist-item input:checked + label .checklist-icon {
+            background-color: #A0522D;
+            border-color: #A0522D;
+        }
+        .checklist-item input:checked + label .checklist-icon::after {
+            opacity: 1;
+        }
+        .checklist-icon {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #D1D5DB;
+            border-radius: 4px;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+        .checklist-icon::after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body class="warm-neutral-bg">
+
+    <!-- Header & Navigation -->
+    <nav id="navbar" class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold sienna-text" style="font-family: 'Playfair Display', serif;">TH CONSERVAÇÃO</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#overview" class="nav-link">Visão Geral</a>
+                    <a href="#market-analysis" class="nav-link">Análise de Mercado</a>
+                    <a href="#seo-strategy" class="nav-link">Estratégia SEO</a>
+                    <a href="#next-steps" class="nav-link">Próximos Passos</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+                        <span class="text-3xl">≡</span>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-3">
+                <a href="#overview" class="block py-2 px-4 text-sm hover:bg-gray-200 rounded">Visão Geral</a>
+                <a href="#market-analysis" class="block py-2 px-4 text-sm hover:bg-gray-200 rounded">Análise de Mercado</a>
+                <a href="#seo-strategy" class="block py-2 px-4 text-sm hover:bg-gray-200 rounded">Estratégia SEO</a>
+                <a href="#next-steps" class="block py-2 px-4 text-sm hover:bg-gray-200 rounded">Próximos Passos</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-8">
+
+        <!-- Hero Section (Visão Geral) -->
+        <section id="overview" class="text-center py-20">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4" style="font-family: 'Playfair Display', serif;">Estratégia de Marketing Digital</h1>
+            <h2 class="text-xl md:text-2xl sienna-text mb-6 font-semibold">Conquistando a Posição #1 no Google para Preservação do Patrimônio em São João del Rei</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-700 leading-relaxed">
+                Esta aplicação interativa detalha a estratégia para estabelecer a <strong>TH CONSERVAÇÃO</strong> como a principal autoridade digital em seu nicho. O plano integra otimização para motores de busca (SEO) e otimização da taxa de conversão (CRO), com base em uma análise aprofundada do mercado local, para transformar a landing page em um poderoso canal de aquisição de clientes.
+            </p>
+        </section>
+
+        <hr class="my-12 border-gray-200">
+
+        <!-- Market Analysis Section -->
+        <section id="market-analysis" class="py-16">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold mb-4 section-title">Análise de Mercado Interativa</h2>
+                <p class="text-lg mb-12 max-w-3xl mx-auto text-gray-600">Explore o cenário competitivo e as oportunidades de mercado para a TH CONSERVAÇÃO. Clique nos cards para ver detalhes e use as abas para navegar entre os diferentes segmentos do mercado.</p>
+            </div>
+            
+            <div class="max-w-5xl mx-auto">
+                <div class="flex justify-center border-b-2 border-gray-200 mb-8">
+                    <button class="tab active py-2 px-6 font-semibold text-gray-600 border-b-2 border-transparent transition" data-tab="preservacao">Ecossistema de Preservação</button>
+                    <button class="tab py-2 px-6 font-semibold text-gray-600 border-b-2 border-transparent transition" data-tab="manutencao">Serviços de Manutenção</button>
+                    <button class="tab py-2 px-6 font-semibold text-gray-600 border-b-2 border-transparent transition" data-tab="oportunidades">Oportunidades</button>
+                </div>
+
+                <div id="preservacao" class="tab-content active">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Cards for Preservation Ecosystem -->
+                    </div>
+                </div>
+                <div id="manutencao" class="tab-content">
+                     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Cards for Maintenance Services -->
+                    </div>
+                </div>
+                <div id="oportunidades" class="tab-content">
+                    <div class="space-y-6">
+                       <!-- Opportunity Cards -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-12 border-gray-200">
+
+        <!-- SEO Strategy Section -->
+        <section id="seo-strategy" class="py-16">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold mb-4 section-title">Estratégia de SEO</h2>
+                <p class="text-lg mb-12 max-w-3xl mx-auto text-gray-600">Análise visual da estratégia de palavras-chave e detalhamento das táticas de otimização on-page e off-page para alcançar o topo do ranking no Google.</p>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Análise de Palavras-Chave</h3>
+                    <div class="flex justify-center mb-4 space-x-2">
+                         <select id="keywordFilter" class="p-2 border rounded-md shadow-sm">
+                            <option value="all">Todas as Intenções</option>
+                            <option value="Comercial">Intenção Comercial</option>
+                            <option value="Transacional">Intenção Transacional</option>
+                        </select>
+                    </div>
+                    <div class="chart-container relative h-96 max-h-[400px] w-full max-w-2xl mx-auto">
+                        <canvas id="keywordChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-center">Táticas de Otimização</h3>
+                    <div id="accordion-container" class="space-y-4">
+                        <!-- Accordions will be injected here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-12 border-gray-200">
+
+        <!-- Next Steps Section -->
+        <section id="next-steps" class="py-16">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold mb-4 section-title">Recomendações e Próximos Passos</h2>
+                <p class="text-lg mb-12 max-w-3xl mx-auto text-gray-600">Um checklist interativo das ações prioritárias para implementar a estratégia e monitorar o sucesso, transformando o plano em resultados concretos.</p>
+            </div>
+            <div id="checklist-container" class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+                <!-- Checklist items will be injected here -->
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-gray-800 text-white text-center p-6 mt-16">
+        <p>&copy; 2025 TH CONSERVAÇÃO. Análise e Estratégia de Marketing Digital.</p>
+    </footer>
+
+    <!-- Modal Structure -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4 z-50">
+        <div id="modal-content" class="bg-white rounded-lg shadow-2xl p-8 max-w-2xl w-full relative transform transition-all duration-300 scale-95 opacity-0">
+             <button id="modal-close" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+             <h3 id="modal-title" class="text-2xl font-bold mb-4 sienna-text"></h3>
+             <div id="modal-body" class="text-gray-700 space-y-3"></div>
+        </div>
+    </div>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        const marketData = {
+            preservacao: [
+                { title: 'IEPHA-MG', focus: 'Regulamentação e Promoção', details: 'Órgão governamental, autoridade máxima em patrimônio em MG. Essencial para conformidade e legitimação. Fonte de oportunidades via ICMS Patrimônio Cultural.' },
+                { title: 'Grupo Oficina de Restauro', focus: 'Preservação e Restauração', details: 'Fundada em 1987, referência em qualidade e metodologia científica. Benchmarking para serviços de restauração.' },
+                { title: 'Instituto Pedra', focus: 'Valorização e Preservação', details: 'Abordagem holística, entrega de "manual de conservação". Modelo de serviço completo e foco na sustentabilidade.' },
+            ],
+            manutencao: [
+                { title: 'Master House', focus: 'Manutenção Predial', details: 'Concorrente indireto/parceiro potencial. Atende demanda geral de manutenção. A TH CONSERVAÇÃO pode se diferenciar pela especialização em patrimônio.' },
+                { title: 'Vigilância Patrimonial 24h', focus: 'Segurança Patrimonial', details: 'Parceiro potencial. Oportunidade de integrar serviços de segurança especializados para bens históricos.' },
+                { title: 'UFSJ (Segurança Institucional)', focus: 'Segurança Institucional', details: 'Potencial cliente B2B. Demonstra demanda por segurança especializada para grandes complexos institucionais na cidade.' },
+            ],
+            oportunidades: [
+                 { title: 'Nicho de Mercado', details: 'Foco distintivo na "preservação do patrimônio", diferenciando-se de generalistas. Oportunidade de oferecer manutenção especializada para imóveis históricos.' },
+                 { title: 'Expertise Regulamentar', details: 'O domínio dos complexos processos do Iepha-MG é uma vantagem competitiva. Posicionar-se como especialista em assessoria para aprovações e conformidade.' },
+                 { title: 'Integração de Serviços', details: 'Integrar serviços de segurança patrimonial especializados para bens históricos, preenchendo uma lacuna no mercado e oferecendo uma solução completa.' }
+            ]
+        };
+
+        const keywordData = [
+            { label: 'Preservação patrimônio SJDR', volume: 8, kd: 6, intention: 'Transacional' },
+            { label: 'Restauração imóveis históricos MG', volume: 7, kd: 7, intention: 'Comercial' },
+            { label: 'Conservação bens culturais SJDR', volume: 6, kd: 6, intention: 'Transacional' },
+            { label: 'Apoio a edifícios históricos MG', volume: 6, kd: 5, intention: 'Comercial' },
+            { label: 'Manutenção patrimônio tombado SJDR', volume: 4, kd: 4, intention: 'Comercial' },
+            { label: 'Assessoria IEPHA-MG', volume: 3, kd: 3, intention: 'Comercial' },
+            { label: 'ICMS Patrimônio Cultural serviços', volume: 3, kd: 3, intention: 'Comercial' },
+            { label: 'Orçamento restauração fachada SJDR', volume: 5, kd: 2, intention: 'Transacional' },
+            { label: 'Segurança para bens tombados', volume: 3, kd: 3, intention: 'Comercial' }
+        ];
+
+        const accordionData = [
+            { 
+                title: 'Otimização On-Page',
+                content: `<ul>
+                    <li class="mb-2"><strong>Título (H1) & Metadados:</strong> Incorporar palavras-chave primárias e CTAs claras.</li>
+                    <li class="mb-2"><strong>Estrutura de Conteúdo:</strong> Usar H2/H3/H4 com palavras-chave secundárias.</li>
+                    <li class="mb-2"><strong>Copywriting Persuasivo:</strong> Focar nos benefícios para clientes B2B e B2C, destacando expertise e confiança.</li>
+                    <li class="mb-2"><strong>Prova Social:</strong> Incluir depoimentos e estudos de caso de "antes e depois".</li>
+                    <li class="mb-2"><strong>Otimização Técnica:</strong> Garantir velocidade, responsividade móvel, URLs amigáveis e implementação de Schema.org (LocalBusiness, Service, FAQPage).</li>
+                </ul>`
+            },
+            {
+                title: 'Estratégia de SEO Off-Page',
+                content: `<ul>
+                    <li class="mb-2"><strong>Link Building de Qualidade:</strong> Focar em obter links de sites de alta autoridade, como Iepha-MG, IPHAN e parceiros de negócios locais.</li>
+                    <li class="mb-2"><strong>Google Meu Negócio (GMN):</strong> Otimizar perfil com informações completas e consistentes, incentivando avaliações de clientes.</li>
+                     <li class="mb-2"><strong>Citações Locais (NAP):</strong> Garantir consistência do Nome, Endereço e Telefone em diretórios online.</li>
+                    <li class="mb-2"><strong>Mídias Sociais:</strong> Usar plataformas como LinkedIn e Instagram para compartilhar conteúdo, gerar tráfego e construir autoridade de marca.</li>
+                </ul>`
+            }
+        ];
+
+        const checklistData = [
+            { title: 'Desenvolver Landing Page com foco em E-E-A-T e CRO', details: 'Criar conteúdo detalhado, estudos de caso, FAQ e CTAs otimizados.' },
+            { title: 'Realizar Otimização Técnica Rigorosa', details: 'Focar em velocidade, responsividade e implementação completa de Schema Markup.' },
+            { title: 'Implementar Estratégia de Conteúdo Localizado', details: 'Utilizar palavras-chave geográficas e conteúdo específico para São João del Rei.' },
+            { title: 'Construir Autoridade Off-Page', details: 'Otimizar GMN, construir links de qualidade e garantir consistência do NAP.' },
+            { title: 'Estabelecer Monitoramento Contínuo', details: 'Acompanhar ranqueamento, tráfego, conversões e ajustar a estratégia conforme necessário.' },
+        ];
+
+
+        // Mobile Menu
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Tabs
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const target = tab.getAttribute('data-tab');
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === target) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // Modal
+        const modal = document.getElementById('modal');
+        const modalContent = document.getElementById('modal-content');
+        const modalClose = document.getElementById('modal-close');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+
+        function openModal(title, body) {
+            modalTitle.textContent = title;
+            modalBody.innerHTML = body;
+            modal.classList.remove('hidden');
+            setTimeout(() => modalContent.classList.remove('scale-95', 'opacity-0'), 10);
+        }
+
+        function closeModal() {
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Populate Market Analysis
+        function createCard(item) {
+            const card = document.createElement('div');
+            card.className = 'card-bg p-6 rounded-lg shadow-md cursor-pointer transition hover:shadow-xl hover:-translate-y-1';
+            card.innerHTML = `<h4 class="text-xl font-bold sienna-text">${item.title}</h4><p class="text-gray-600">${item.focus || ''}</p>`;
+            card.addEventListener('click', () => openModal(item.title, `<p>${item.details}</p>`));
+            return card;
+        }
+
+        const preservacaoContainer = document.querySelector('#preservacao .grid');
+        marketData.preservacao.forEach(item => preservacaoContainer.appendChild(createCard(item)));
+
+        const manutencaoContainer = document.querySelector('#manutencao .grid');
+        marketData.manutencao.forEach(item => manutencaoContainer.appendChild(createCard(item)));
+        
+        const oportunidadesContainer = document.querySelector('#oportunidades .space-y-6');
+        marketData.oportunidades.forEach(item => {
+             const opportunityDiv = document.createElement('div');
+             opportunityDiv.className = 'card-bg p-6 rounded-lg shadow-md';
+             opportunityDiv.innerHTML = `<h4 class="text-xl font-bold sienna-text mb-2">${item.title}</h4><p class="text-gray-700">${item.details}</p>`;
+             oportunidadesContainer.appendChild(opportunityDiv);
+        });
+
+        // Accordion
+        const accordionContainer = document.getElementById('accordion-container');
+        accordionData.forEach((item, index) => {
+            const accordionItem = document.createElement('div');
+            accordionItem.className = 'border border-gray-200 rounded-lg';
+            accordionItem.innerHTML = `
+                <button class="accordion-header w-full flex justify-between items-center p-4 text-left font-semibold text-lg hover:bg-gray-100 transition">
+                    <span>${item.title}</span>
+                    <span class="transform transition-transform duration-300">▼</span>
+                </button>
+                <div class="accordion-content px-4 pb-4 text-gray-700">
+                    ${item.content}
+                </div>`;
+            accordionContainer.appendChild(accordionItem);
+        });
+
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const arrow = header.querySelector('span:last-child');
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    arrow.style.transform = 'rotate(0deg)';
+                } else {
+                    document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+                    document.querySelectorAll('.accordion-header span:last-child').forEach(a => a.style.transform = 'rotate(0deg)');
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    arrow.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        // Checklist
+        const checklistContainer = document.getElementById('checklist-container');
+        checklistData.forEach((item, index) => {
+            const checklistItem = document.createElement('div');
+            checklistItem.className = 'checklist-item flex items-center mb-4';
+            checklistItem.innerHTML = `
+                <div class="relative flex items-start">
+                    <div class="flex items-center h-5">
+                        <input id="check-${index}" type="checkbox" class="opacity-0 absolute w-5 h-5 cursor-pointer">
+                        <label for="check-${index}" class="flex items-center cursor-pointer">
+                            <span class="checklist-icon mr-3"></span>
+                            <span class="checklist-text text-lg font-medium text-gray-800 transition">${item.title}</span>
+                        </label>
+                    </div>
+                </div>`;
+            checklistContainer.appendChild(checklistItem);
+        });
+
+        // Chart.js
+        const ctx = document.getElementById('keywordChart').getContext('2d');
+        let keywordChart;
+        
+        function createChart(data) {
+            if (keywordChart) {
+                keywordChart.destroy();
+            }
+             keywordChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(k => k.label),
+                    datasets: [{
+                        label: 'Volume de Busca (Estimado)',
+                        data: data.map(k => k.volume),
+                        backgroundColor: 'rgba(160, 82, 45, 0.7)',
+                        borderColor: 'rgba(160, 82, 45, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Dificuldade de Ranqueamento (KD)',
+                        data: data.map(k => k.kd),
+                        backgroundColor: 'rgba(204, 204, 204, 0.7)',
+                        borderColor: 'rgba(150, 150, 150, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                             title: {
+                                display: true,
+                                text: 'Valor (Volume e Dificuldade)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                footer: function(tooltipItems) {
+                                    const itemIndex = tooltipItems[0].dataIndex;
+                                    return `Intenção: ${data[itemIndex].intention}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        const keywordFilter = document.getElementById('keywordFilter');
+        keywordFilter.addEventListener('change', (e) => {
+            const selectedIntention = e.target.value;
+            const filteredData = selectedIntention === 'all' ? keywordData : keywordData.filter(k => k.intention === selectedIntention);
+            createChart(filteredData);
+        });
+        
+        // Initial Chart Load
+        createChart(keywordData);
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+# Adicione o logo da empresa para a landing page
+# Salve este arquivo como logo-th.png na pasta public/
+#
+# Dica: Use o arquivo de imagem fornecido pelo usuário (logo TH CONSERVAÇÃO)
+#
+# O arquivo deve ser salvo em: public/logo-th.png
